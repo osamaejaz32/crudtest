@@ -39,8 +39,9 @@ router.post('/saveUserProfile',upload.single('avatar'),(req,res,next)=>{
         user_email:req.body.user_email,
         device_token:req.body.device_token,
         user_profile_image:filename,
-        user_password:apiCheck.encryptPassword(req.body.user_password)
+        user_password:req.body.user_password
     })
+    console.log(user);
     if(result){
         user.save((err,docs)=>{
             if(!err){
@@ -61,7 +62,7 @@ router.post('/saveUserProfile',upload.single('avatar'),(req,res,next)=>{
     }
     else if(!result){
         let response = {
-            status: true,
+            status: true,  
             data: {
                 msg: 'Mobile No. Already exists'
             }

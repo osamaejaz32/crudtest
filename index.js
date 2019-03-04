@@ -5,7 +5,9 @@ const cors = require('cors');
 const productControl = require('./controllers/productControl');
 const csvControl = require('./controllers/importcsv');
 const notificationControl = require('./controllers/notificationControl');
-const userControl = require('./controllers/userControl')
+const userControl = require('./controllers/userControl');
+const questionControl = require('./controllers/questionControl');
+
 const app = express();
 app.use(bodyParser.urlencoded({ extended: false }));
 // app.use(cors({origin:'http://localhost:4200'}))
@@ -22,7 +24,7 @@ app.use('/product',productControl);
 app.use('/importcsv',csvControl);
 app.use('/notify',notificationControl);
 app.use('/user',userControl);
-
+app.use('/question',questionControl);
 app.use('/',(req,res,next)=>{
     let response =  `
         <h1>Listening on port 3000</h1>
