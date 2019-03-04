@@ -23,13 +23,16 @@
         })
     }
     apiCheck.encryptPassword = function(password){
-        let result = password;
+        // let result = password;
         bcrypt.hash(password,saltRounds,function(err,hash){
             if(!err){
                 console.log(hash)
-                result = hash;
+                return hash;
+            }
+            else{
+                return password;
             }
         })
-        return result;
+        
     }
 })(module.exports)

@@ -26,10 +26,12 @@ router.post('/saveUserProfile',upload.single('avatar'),(req,res,next)=>{
     var filename;
     let result = apiCheck.checkMobileFields(req.body.user_mobile);
     console.log(result)
-    if(req.file === undefined)
+    if(req.file === undefined){
         filename = '';
-    else
+    }
+    else{
         filename = req.file.filename;
+    }
 
         var user = new User({
         user_name:req.body.user_name,
@@ -37,7 +39,7 @@ router.post('/saveUserProfile',upload.single('avatar'),(req,res,next)=>{
         user_email:req.body.user_email,
         device_token:req.body.device_token,
         user_profile_image:filename,
-        user_password:req.body.user_password
+        user_password:apiCheck.encryptPassword(req.body.user_password)
     })
     if(result){
         user.save((err,docs)=>{
