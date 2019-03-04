@@ -10,12 +10,6 @@
     const db = admin.firestore();
     const { Question } = require('../models/csv');
     firestore.getQuestion = function(){
-        // var addDoc = db.collection('cities').add({
-        //     name: 'Tokyo',
-        //     country: 'Japan'
-        //   }).then(ref => {
-        //     console.log('Added document with ID: ', ref.id);
-        //   });
         Question.find({selected: 0},(err,docs)=>{
             if(!err){
                 if(docs.length > 0){
