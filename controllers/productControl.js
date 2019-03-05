@@ -47,12 +47,22 @@ router.post('/add-product',upload.single('avatar'),(req,res,next)=>{
     else
     filename = req.file.filename
     if(ObjectId.isValid(req.body.id)){
-        product = {
-            name: req.body.name,
-            price: req.body.price,
-            description: req.body.description,
-            filename: filename
-        };
+        if(filename == ''){
+            product = {
+                name: req.body.name,
+                price: req.body.price,
+                description: req.body.description
+            };
+        }
+        else{
+            product = {
+                name: req.body.name,
+                price: req.body.price,
+                description: req.body.description,
+                filename: filename
+            };
+        }
+        
         Product.findByIdAndUpdate(req.body.id,{$set: product }, {new: true},(err,docs)=>{
             if(!err){
                 res.send(docs)
@@ -94,6 +104,7 @@ router.get('/show-product/:id',(req,res,next)=>{
     else{
         Product.findById(req.params.id,(err,docs)=>{
             if(!err){
+                docs.filename = 'http://localhost:3000/uploads/'+docs.filename;
                 res.status(200).send(docs)
             }
         })

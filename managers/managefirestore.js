@@ -13,15 +13,16 @@
         Question.find({selected: 0},(err,docs)=>{
             if(!err){
                 if(docs.length > 0){
-                    console.log(docs[0]);
+                    var options = [
+                        {option:docs[0].option1,valid: true},
+                        {option:docs[0].option2,valid: false},
+                        {option:docs[0].option3,valid: false},
+                        {option:docs[0].option4,valid: false},
+                    ];
+                    options.sort(() => Math.random() - 0.5);
                     var setQuestion = db.collection('question').doc('1').set({
                         question: docs[0].question,
-                        options: [
-                            {option:docs[0].option1,valid: true},
-                            {option:docs[0].option2,valid: false},
-                            {option:docs[0].option3,valid: false},
-                            {option:docs[0].option4,valid: false},
-                        ]
+                        options: options
                     }).then(ref=>{
                         console.log('added');
                         var question = {
