@@ -16,10 +16,12 @@
                     console.log(docs[0]);
                     var setQuestion = db.collection('question').doc('1').set({
                         question: docs[0].question,
-                        option1: docs[0].option1,
-                        option2: docs[0].option2,
-                        option3: docs[0].option3,
-                        option4: docs[0].option4,
+                        options: [
+                            {option:docs[0].option1,valid: true},
+                            {option:docs[0].option2,valid: false},
+                            {option:docs[0].option3,valid: false},
+                            {option:docs[0].option4,valid: false},
+                        ]
                     }).then(ref=>{
                         console.log('added');
                         var question = {
@@ -31,6 +33,14 @@
                             }
                         })
                     })
+                }
+                else{
+                    var setQuestion = db.collection('question').doc('1').set({
+                        question: null,
+                        status: false
+                    }).then(ref=>{
+                        console.log('the end');
+                    }) 
                 }
             }
         }).limit(1);
