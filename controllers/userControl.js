@@ -56,6 +56,8 @@ router.post('/saveUserProfile',upload.single('avatar'),(req,res,next)=>{
                     status: true,
                     data: null
                 }
+
+                
                 res.send(response); 
             }
         })

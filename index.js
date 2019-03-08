@@ -3,11 +3,10 @@ const db = require('./db');
 const bodyParser = require('body-parser')
 const cors = require('cors');
 const productControl = require('./controllers/productControl');
-const csvControl = require('./controllers/importcsv');
+const csvControl = require('./controllers/csvControl');
 const notificationControl = require('./controllers/notificationControl');
 const userControl = require('./controllers/userControl');
 const questionControl = require('./controllers/questionControl');
-
 const app = express();
 app.use(bodyParser.urlencoded({ extended: false }));
 // app.use(cors({origin:'http://localhost:4200'}))
@@ -15,10 +14,9 @@ app.use(bodyParser.urlencoded({ extended: false }));
 app.use(cors());
 app.use(bodyParser.json());
 app.use('/uploads',express.static('uploads'))
-app.listen(3000,()=>{
-    console.log('port 3000')
+const server = app.listen(3000,()=>{
+    console.log('port 3000');
 })
-
 
 app.use('/product',productControl);
 app.use('/importcsv',csvControl);
@@ -32,3 +30,4 @@ app.use('/',(req,res,next)=>{
     `;
     res.send(response)
 })
+

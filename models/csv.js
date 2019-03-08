@@ -8,7 +8,8 @@ const Question = mongoose.model('Question',{
     option2: String,
     option3: String,
     option4: String,
-    selected: Number
+    selected: Number,
+    module_no: Number
 })
 
 module.exports = { Question }
